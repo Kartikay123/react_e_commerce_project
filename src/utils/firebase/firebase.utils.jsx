@@ -1,5 +1,5 @@
 import {initializeApp} from 'firebase/app';
-import {getAuth ,signInWithPopup,GoogleAuthProvider} from 'firebase/auth';
+import {getAuth ,signInWithPopup,signInWithRedirect,GoogleAuthProvider,createUserWithEmailAndPassword} from 'firebase/auth';
 import {getFirestore,doc,getDoc,setDoc} from 'firebase/firestore';
 
 //doc: getting the document, getdoc getting the data setdoc setting the data 
@@ -17,6 +17,8 @@ const firebaseConfig =
   // Initialize Firebase  creating reading updating deleting
   const firebaseApp = initializeApp(firebaseConfig);
 
+
+  // provider is of google you can call github facebook and other provider as well
   const provider= new GoogleAuthProvider();
   provider.setCustomParameters({
       prompt: "select_account"
@@ -24,9 +26,11 @@ const firebaseConfig =
 
   export const auth=getAuth();
   export const signInWithGoogle=()=> signInWithPopup(auth,provider);
+  export const signInWithGoogleredirect=()=> signInWithRedirect(auth,provider);
   export const db= getFirestore();
 
-  export const createuserdocumentfromauth= async(userAuth)=>{
+  export const createuserdocumentfromauth= async(userAuth, additionalInformation={})=>{
+    if(!userAuth) return;
      const Userdocref =doc(db,'users',userAuth.uid);
      console.log(Userdocref);
     const userdata=await getDoc(Userdocref);
@@ -42,6 +46,7 @@ const firebaseConfig =
           await setDoc(Userdocref,
         {
           displayName,email,CreatedAt,
+          ...additionalInformation
         });
       }
       catch(error)
@@ -51,3 +56,13 @@ const firebaseConfig =
     }
     return Userdocref;
   }
+  //xport const Createauthuseremailpassword = async (email, password) => {
+  //   if (!email || !password) return;
+  
+  //   return await Createauthuseremailpassword(auth, email, password);
+  // };
+
+  export const createAuthUserWithEmailAndPassword = async (email, password) => {
+    if (!email || !password) return;
+    return await createUserWithEmailAndPassword(auth, email, password);
+  };
