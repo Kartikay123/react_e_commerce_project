@@ -1,25 +1,20 @@
-import './sign-in.styles.scss';
+import './authentication.styles.scss';
 import {signInWithGoogle,auth,createuserdocumentfromauth,signInWithGoogleredirect} from '../../utils/firebase/firebase.utils';
-import Signupform from '../../Component/sign-up/sign-up.component';
-const Signin =()=>{
-    const loginGoogleuser =async ()=>{
-        const {user} =await signInWithGoogle();
-        const Userdocref= await createuserdocumentfromauth(user);
-    }
+import Signupform from '../../Component/sign-up-form/sign-up-form.component';
+import Signinform from '../../Component/sign-in-form/sign-in-form.component';
+const Authentication =()=>{
+   
     return(
-        <div>
-         <h1>I am at Sign in page</h1>
-            <button onClick={loginGoogleuser}>
-                sign in with Google
-            </button>
-            <br/>
+        <div className='authentication-container'>
+        
+           <Signinform/>
             <Signupform/>
            
         </div>
        
     )
 }
-export default Signin;
+export default Authentication;
 
 // import { useEffect } from 'react';
 // import {getRedirectResult} from 'firebase/auth';

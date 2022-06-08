@@ -1,4 +1,4 @@
-import './sign-up.styles.scss';
+import './sign-up-form.styles.scss';
 import { useState } from 'react';
 import Forminput from '../form-input/form-input.component';
 import Button from '../button/button.component';
@@ -52,7 +52,7 @@ const Signupform =()=>{
     return (
         <div className='Sign-up-container'>
             <h2>Don't have an Account Sign up</h2>
-            <span>Sign in With Email and Password</span>
+            <span>Sign up With Email and Password</span>
             <form onSubmit={handler}>
                 <Forminput label ='Display Name'type='text' required onChange={handle} name='displayname' value={displayname}/>
 
