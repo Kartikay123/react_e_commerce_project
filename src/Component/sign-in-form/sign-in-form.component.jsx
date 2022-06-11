@@ -1,8 +1,8 @@
 import './sign-in-form.styles.scss';
-import { useState } from 'react';
+import { useState} from 'react';
 import Forminput from '../form-input/form-input.component';
 import Button from '../button/button.component';
-import   {signInWithGoogle,createuserdocumentfromauth,SigncreateAuthUserWithEmailAndPassword} from'../../utils/firebase/firebase.utils';
+import {signInWithGoogle,createuserdocumentfromauth,SigncreateAuthUserWithEmailAndPassword} from'../../utils/firebase/firebase.utils';
 const Signinformtype ={
    
     email:'',
@@ -18,10 +18,11 @@ const Signinform =()=>{
     
     const resetFormfield=()=>{
         setformfield(Signinformtype);
+
     }
     const signInWala =async ()=>{
-        const {user} =await signInWithGoogle();
-        await createuserdocumentfromauth(user);
+        await signInWithGoogle();
+        //await createuserdocumentfromauth(user);
     }
 
     const handler=async (event)=>{
@@ -30,8 +31,9 @@ const Signinform =()=>{
         
         try{
             
-          const re= await SigncreateAuthUserWithEmailAndPassword(email,password);
-          console.log(re);
+          const {user}= await SigncreateAuthUserWithEmailAndPassword(email,password);
+          //console.log(re);
+          
             resetFormfield();
         }
         catch(error){

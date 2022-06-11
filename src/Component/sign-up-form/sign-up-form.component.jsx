@@ -2,19 +2,22 @@ import './sign-up-form.styles.scss';
 import { useState } from 'react';
 import Forminput from '../form-input/form-input.component';
 import Button from '../button/button.component';
-import   {createAuthUserWithEmailAndPassword,createuserdocumentfromauth} from'../../utils/firebase/firebase.utils';
-const Sigupformtype ={
+import {createAuthUserWithEmailAndPassword,createuserdocumentfromauth}  from '../../utils/firebase/firebase.utils';
+
+
+const Sigupformtype =
+{
     displayname:'',
     email:'',
     password:'',
     confirmpassword:''
 };
 
-
 const Signupform =()=>{
 
     const[formfield,setformfield]= useState(Sigupformtype);
     const {email,password,confirmpassword,displayname}=formfield;
+
 
     const resetFormfield=()=>{
         setformfield(Sigupformtype);
@@ -44,7 +47,7 @@ const Signupform =()=>{
         }
     }    
 
-    console.log(formfield);
+
     const handle =(event)=>{
         const {name,value}=event.target;
         setformfield({...formfield, [name]:value})
