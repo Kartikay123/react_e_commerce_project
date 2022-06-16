@@ -2,7 +2,7 @@
 import {initializeApp} from 'firebase/app';
 import {getAuth ,signInWithPopup,signInWithRedirect,GoogleAuthProvider,
   createUserWithEmailAndPassword,signInWithEmailAndPassword,signOut,onAuthStateChanged} from 'firebase/auth';
-import {getFirestore,doc,getDoc,setDoc} from 'firebase/firestore';
+import {getFirestore,doc,getDoc,setDoc,collection,writeBatch,query,getDocs} from 'firebase/firestore';
 
 //doc: getting the document, getdoc getting the data setdoc setting the data 
 const firebaseConfig = 
@@ -31,12 +31,41 @@ const firebaseConfig =
   export const signInWithGoogleredirect=()=> signInWithRedirect(auth,provider);
   export const db= getFirestore();
 
+
+
+  export const addcollection= async(collectionkey,objecttoadd)=>{
+    const collectionRef =collection(db,collectionkey);
+    const batch = writeBatch(db);
+
+    objecttoadd.forEach((object)=>{
+      const docRef = doc(collectionRef,object.title.toLowerCase());
+      batch.set(docRef,object);
+    });
+    await batch.commit();
+    console.log('done');
+
+  }
+
+  export const getcategoriesanddocuments= async()=>{
+    const collectionRef=collection(db,'categories');
+    const q = query(collectionRef);
+    
+    const querySnapshot= await getDocs(q);
+    const CategoryMap= querySnapshot.docs.reduce((ac,docSnapshot)=>{
+      const {title,items}= docSnapshot.data();
+      ac[title.toLowerCase()]=items;
+      return ac;
+
+    },{})
+    return CategoryMap;
+  }
+
   export const createuserdocumentfromauth= async(userAuth, additionalInformation={})=>{
     if(!userAuth) return;
      const Userdocref =doc(db,'users',userAuth.uid);
-     console.log(Userdocref);
+     //console.log(Userdocref);
     const userdata=await getDoc(Userdocref);
-    console.log(userdata.exists());
+    //console.log(userdata.exists());
 
 
     //if the userdata does not exist in firestore then:

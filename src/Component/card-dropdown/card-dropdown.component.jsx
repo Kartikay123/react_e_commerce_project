@@ -13,7 +13,15 @@ const Dropdown =()=>{
     return(
         <div className='cart-dropdown-container'>
         <div className='cart-items'>
-            {carditem.map(items=> <Carditems  key ={items.id} cardpassitem={items}/>)}
+        {
+            carditem.length?(
+                carditem.map(items=>( <Carditems  key ={items.id} cardpassitem={items}/>)
+                )
+
+            ):(
+                <span>your cart is empty</span>
+            )
+        }
         </div>
         <Button onClick={GotoCheckout}>GO TO CHECKOUT</Button>
 
