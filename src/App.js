@@ -4,8 +4,7 @@ import  Navigation from './routes/navigation/navigation.component';
 import  Authentication from './routes/authentication/authentication.component';
 import Shop from "./routes/shop/shop.component";
 import Checkout from "./routes/checkout/checkout.component";
-
-
+import { Global } from "./globalstyles";
 //  in this routing parent compo is navigation bar and its sibling is home and Shop
 //  navigation + home give one page and navigation + shop other outlet varies in home and shp
 // const App = () => {
@@ -25,6 +24,8 @@ import Checkout from "./routes/checkout/checkout.component";
 // this index make the navigation empty '/' merge with home directy
 const App = () => {
   return (
+    <div>
+   <Global/>
     <Routes>
     <Route path="/" element={ <Navigation />}>
       <Route index element={ <Home />}/>
@@ -33,6 +34,8 @@ const App = () => {
       <Route path="checkout" element={ <Checkout />}/>
     </Route> 
     </Routes>
+    </div>
+   
 
   );
 }
