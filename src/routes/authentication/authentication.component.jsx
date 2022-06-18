@@ -7,8 +7,9 @@ const Authentication =()=>{
     return(
         <div className='authentication-container'>
         
-           <Signinform/>
+          
             <Signupform/>
+            <Signinform/>
            
         </div>
        
